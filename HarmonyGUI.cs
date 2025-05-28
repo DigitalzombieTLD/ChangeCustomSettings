@@ -52,10 +52,11 @@ namespace ChangeCustomSettings
                 return;
             }
             
+            /*
             GameObject newButtonBackground = GameObject.Instantiate(optionsPanel.m_MainMenuItem_PrivacyBackground);
             newButtonBackground.name = "DifficultySettingsBackground";
             optionsPanel.m_MainMenuItemsBackground.Add(newButtonBackground);
-            newButtonBackground.SetActive(false);            
+            newButtonBackground.SetActive(false);     */       
 
             GameObject gameObject = NGUITools.AddChild(basicMenu.m_MenuGrid.gameObject, basicMenu.m_BasicMenuItemPrefab);
             gameObject.name = "DifficultySettings MenuItem";
@@ -141,14 +142,14 @@ namespace ChangeCustomSettings
             GUI.customSettingsPanel.GetComponent<Panel_CustomXPSetup>().SetUIFromCurrentCustomXP();
 
 
-
+            /*
             for (int i = 0; i < __instance.m_MainMenuItemsBackground.Count; i++)
             {
                 if (__instance.m_MainMenuItemsBackground[i] == null)
                 {
                     __instance.m_MainMenuItemsBackground[i] = __instance.m_MainMenuItemsBackground[0];
                 }
-            }
+            }*/
         }
     }    
 }
