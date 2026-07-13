@@ -96,18 +96,22 @@ namespace ChangeCustomSettings
 
         public void LoadEmbeddedAssetBundle()
         {
-            if(assetBundle != null)
+
+            if (assetBundle != null)
             {
                 return;
             }
-            MemoryStream memoryStream;
-            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ChangeCustomSettings.Resources.changecustomsettings");
-            memoryStream = new MemoryStream((int)stream.Length);
-            stream.CopyTo(memoryStream);
+            using (System.IO.Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ChangeCustomSettings.Resources.changecustomsettings"))
+            {
+                MemoryStream? memory = new((int)stream.Length);
+                stream!.CopyTo(memory);
 
-            assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-            
-            copyButtonPrefab = UnityEngine.Object.Instantiate(assetBundle.LoadAsset<GameObject>("CopyButtonParent"));           
+                Il2CppSystem.IO.MemoryStream memoryStream = new Il2CppSystem.IO.MemoryStream(memory.ToArray());
+
+                assetBundle = AssetBundle.LoadFromStream(memoryStream);
+            }
+
+            copyButtonPrefab = UnityEngine.Object.Instantiate(assetBundle.LoadAsset<GameObject>("CopyButtonParent"));
 
             GameObject.DontDestroyOnLoad(copyButtonPrefab);
             copyButtonPrefab.SetActive(false);

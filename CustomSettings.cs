@@ -21,7 +21,7 @@ namespace ChangeCustomSettings
             GUI.cachedDifficultyString = GameManager.GetExperienceModeManagerComponent().GetCurrentCustomModeString();
             //GameManager.GetExperienceModeManagerComponent().GetCurrentExperienceMode().m_ModeType = ExperienceModeType.Custom;
             //ExperienceModeManager.m_ExperienceModeManagerSaveDataProxy.CurrentModeType = ExperienceModeType.Custom;
-            ExperienceModeManager.s_CurrentGameMode = ExperienceModeManager.Instance.m_AvailableGameModes[4];
+            ExperienceModeManager.s_CurrentGameMode = ExperienceModeManager.Instance.GetAvailableGameModes()[8];
 
             //SaveGameSlots.UpdateSlotGameMode(SaveGameSystem.GetCurrentSaveName(), GameManager.GetExperienceModeManagerComponent().GetCurrentExperienceMode().m_ModeType, ExperienceModeType.Custom);
 
