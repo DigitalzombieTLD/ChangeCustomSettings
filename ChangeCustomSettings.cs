@@ -17,11 +17,13 @@ namespace ChangeCustomSettings
 
         public override void OnInitializeMelon()
         {
-            
+            Settings.OnLoad();
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
 		{
+            EditedSaves.OnSceneLoaded(sceneName);
+
             if ((!sceneName.Contains("Empty") && !sceneName.Contains("Boot") && sceneName.Contains("MainMenu")))
             {
                 if (!eventSystem)
