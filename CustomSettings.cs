@@ -14,32 +14,35 @@ namespace ChangeCustomSettings
 	public static class CustomSetting
 	{
        public static void SetGameModeConfig(Panel_CustomXPSetup customXPPanel)
-       {            
+       {
             GUI.SwitchCustomSettingsPanel(false);
 
-            // getting new string
-            GUI.cachedDifficultyString = GameManager.GetExperienceModeManagerComponent().GetCurrentCustomModeString();
-            //GameManager.GetExperienceModeManagerComponent().GetCurrentExperienceMode().m_ModeType = ExperienceModeType.Custom;
-            //ExperienceModeManager.m_ExperienceModeManagerSaveDataProxy.CurrentModeType = ExperienceModeType.Custom;
-            ExperienceModeManager.s_CurrentGameMode = ExperienceModeManager.Instance.m_AvailableGameModes[4];
+            if (GameManager.IsMainMenuActive())
+            {
+                MelonLogger.Msg("Not in a game - nothing changed. Load a save to edit its settings.");
+                return;
+            }
 
-            //SaveGameSlots.UpdateSlotGameMode(SaveGameSystem.GetCurrentSaveName(), GameManager.GetExperienceModeManagerComponent().GetCurrentExperienceMode().m_ModeType, ExperienceModeType.Custom);
-
-
-            //////
-
-            string str = StringUtils.RemoveDashes(GUI.cachedDifficultyString);
-           
             ExperienceModeManager experienceModeManager = GameManager.GetExperienceModeManagerComponent();
-            experienceModeManager.SetCurrentCustomModeString(str);           
+            string str = StringUtils.RemoveDashes(experienceModeManager.GetCurrentCustomModeString());
 
-            CustomExperienceMode cem = GameManager.GetCustomMode();      
-            CustomExperienceMode.CreateCustomModeFromString(cem, str);
-            GUI.customSettingsPanel.GetComponent<Panel_CustomXPSetup>().SetValuesToMatchXPMode(); //
-            //customXPPanel.SetCustomXPSettingsFromUI();
+            if (str == GUI.openedWithString)
+            {
+                GUI.cachedDifficultyString = str;
+                MelonLogger.Msg("No changes made - settings left as they were.");
+                return;
+            }
 
-            MelonLogger.Msg("New difficulty setting applied: " + StringUtils.AddDashes(str));
-            MelonLogger.Msg("Saving the game and reloading is highly recommended!");
+            // Note: s_CurrentGameMode is NOT replaced any more (the old code used
+            // m_AvailableGameModes[4], which no longer exists in 2.55, and swapping the whole
+            // GameModeConfig makes SaveShouldBePending() throw -> game freezes after saving).
+            EditedSaves.ApplyCustomString(str);
+
+            string saveName = SaveGameSystem.GetCurrentSaveName();
+            EditedSaves.Remember(saveName, str);
+            MelonLogger.Msg("New difficulty setting applied to " + saveName + ": " + StringUtils.AddDashes(str));
+
+            GameManager.SaveGameAndDisplayHUDMessage();
         }
     }
 }

@@ -49,6 +49,8 @@
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Resources\changecustomsettings" />
+      <EmbeddedResource Include="Resources\copy.a8" />
+      <EmbeddedResource Include="Resources\copied.a8" />
     </ItemGroup>
 
     <!--This is the list of assemblies that the mod references. Most of these are unnecessary for normal mods, but are included here for completeness.-->
@@ -88,6 +90,7 @@
         <Reference Include="Unity.Mathematics" />
         <Reference Include="Unity.TextMeshPro" />
         <Reference Include="UnityEngine.AssetBundleModule" />
+        <Reference Include="ModSettings" />
         <Reference Include="UnityEngine.CoreModule" />
         <Reference Include="UnityEngine" />
         <Reference Include="UnityEngine.IMGUIModule">

@@ -30,7 +30,8 @@ namespace ChangeCustomSettings
     {
         public static void Postfix(ref PlayerManager __instance)
         {
-            GUI.cachedDifficultyString = GameManager.GetExperienceModeManagerComponent().GetCurrentCustomModeString();                       
+            GUI.cachedDifficultyString = GameManager.GetExperienceModeManagerComponent().GetCurrentCustomModeString();
+            EditedSaves.OnGameLoaded();
         }
     }
 }
