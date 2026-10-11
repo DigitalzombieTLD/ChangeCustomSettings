@@ -15,6 +15,14 @@
 - Adds a "Save Game" entry to the Esc pause menu so you can save anywhere.
 - With ModSettings installed it can be turned off under Options -> Mod Settings -> Change Custom Settings.
 
+## Feats and achievements
+
+While a save has edited settings the game runs it as a Custom game, so feats and difficulty
+achievements do not progress on that save (the game's rule for Custom mode). The save's own
+mode type is never rewritten, so this is reversible: remove the mod, or delete that save's line
+from `UserData/ChangeCustomSettings_saves.txt`, and the save loads as a normal
+Stalker/Voyageur/etc. game again with feats back on.
+
 ## 1.2.0 - The Long Dark 2.55 (Unity 6) / MelonLoader 0.7.2
 
 - Fixed: crash on startup ("Failed to decompress data for the AssetBundle 'Memory'") - the embedded
